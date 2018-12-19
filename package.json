@@ -21,5 +21,14 @@
   "bugs": {
     "url": "https://github.com/ivserga/mylanding/issues"
   },
-  "homepage": "https://github.com/ivserga/mylanding#readme"
+  "homepage": "https://github.com/ivserga/mylanding#readme",
+  "devDependencies": {
+    "browser-sync": "^2.26.3",
+    "gulp": "^4.0.0",
+    "gulp-pug": "^4.0.1",
+    "gulp-sass": "^4.0.2"
+  },
+  "dependencies": {
+    "eslint": "^5.10.0"
+  }
 }
