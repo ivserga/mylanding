@@ -4,6 +4,8 @@ const pug = require('gulp-pug');
 const sass = require('gulp-sass');
 sass.compiler = require('node-sass');
 const spritesmith = require('gulp.spritesmith');
+const rimraf = require('rimraf');
+const rename = require('gulp-rename');
 
 /*server*/
 gulp.task('server', function(){
@@ -28,9 +30,10 @@ gulp.task('templates:compile', function buildHTML() {
 
 /*--sass--*/ 
 
-gulp.task('sass', function () {
+gulp.task('styles:compile', function () {
   return gulp.src('source/styles/main.scss')
-    .pipe(sass().on('error', sass.logError))
+    .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
+    .pipe(rename("main.min.css"))
     .pipe(gulp.dest('build/css'));
 });
  
@@ -63,3 +66,18 @@ gulp.task('copy:images', function(){
 });
 
 gulp.task('copy', gulp.parallel('copy:images', 'copy:fonts'));
+
+gulp.task('watch', function(){
+    gulp.watch('source/template/**/*.pug', gulp.series('templates:compile'));
+    gulp.watch('source/styles/**/*.scss', gulp.series('styles:compile'));
+})
+
+gulp.task('clean', function del(cb){
+    return rimraf('build', cb);
+});
+
+gulp.task('default', gulp.series(
+    'clean',
+    gulp.parallel('templates:compile', 'styles:compile', 'sprite', 'copy'),
+    gulp.parallel('watch', 'server')
+));
