@@ -3,14 +3,23 @@ header.header
         .container
             .contacts
                 a.contact(href="Телефон:379494")
-                    i.fas.fa-phone-square
+                    i.fa.fa-phone.contact__icon
                     span.contact__text 379494
                 a.contact(href="mailto:218808@mail.ru")
-                    i.fas.fa-envelope
+                    i.fa.fa-envelope.contact__icon.contact__icon--email
                     span.contact__text 218808@mail.ru
                 a.facebook-icon(href="facebook.com")
-                    i.fab.fa-facebook-f
+                    i.fa.fa-facebook-f
         
     .container
         .header__bottom
             .logo: img.logo__picture(src="images/logo.png", alt="picture")
+            nav.nav
+                - var items = ['Главная', 'О нас', 'Наши тарифы', 'Наша работа']
+                each item, i in items
+                    if i === 0
+                        a.nav__link.nav__link--active(href="#")=item
+                    else
+                        a.nav__link(href="#")=item
+            a.button.header__button.button--red(href="#") Бесплатная консультация
+

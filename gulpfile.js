@@ -48,7 +48,7 @@ gulp.task('styles:compile', function () {
 /*--sprite--*/
  
 gulp.task('sprite', function (cb) {
-  const spriteData = gulp.src('images/icons/*.png').pipe(spritesmith({
+  const spriteData = gulp.src('source/images/icons/*.png').pipe(spritesmith({
     imgName: 'sprite.png',
     imgPath: '../images/sprite.png',
     cssName: 'sprite.scss'
@@ -62,7 +62,7 @@ gulp.task('sprite', function (cb) {
 /* --copy fonts --*/
 
 gulp.task('copy:fonts', function(){
-    return gulp.src('.source/fonts/**/*.*')
+    return gulp.src('./source/fonts/**/*.*')
     .pipe(gulp.dest('build/fonts'));
 });
 
@@ -73,12 +73,12 @@ gulp.task('copy:images', function(){
     .pipe(gulp.dest('build/images'));
 });
 
-gulp.task('copy', gulp.parallel('copy:images', 'copy:fonts'));
+gulp.task('copy', gulp.parallel('copy:images','copy:fonts'));
 
 gulp.task('watch', function(){
     gulp.watch('source/template/**/*.pug', gulp.series('templates:compile'));
     gulp.watch('source/styles/**/*.scss', gulp.series('styles:compile'));
-})
+});
 
 gulp.task('clean', function del(cb){
     return rimraf('build', cb);
