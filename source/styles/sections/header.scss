@@ -11,7 +11,14 @@
         padding: 41px 0 32px;
     }    
 }
-
+.name {
+    display: block;
+    //vertical-align: top;
+    font-size: 1.3rem;
+    //font-family: $ff-main-bold;
+    padding: 10px 10px 8px;
+    color: #de2b24;
+}
 .contacts {
     text-align: right;
 }

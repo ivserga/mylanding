@@ -6,11 +6,11 @@
 
 
     &--red{
-    background: #de2b24;
+    background: #de1010;
     color: #fff;
     transition: 0.3s;
     &:hover{
-        background: lighten($color: #de2b24, $amount: 7%);
+        background: lighten($color: #de1010, $amount: 7%);
     }
     
     }
@@ -19,7 +19,7 @@
     background: #f8cd53;
 
     &:hover{
-        background: lighten($color: #f8cd53, $amount: 7);
+        background: lighten($color: #f8cd53, $amount: 7%);
     }
     }
 

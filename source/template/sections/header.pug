@@ -12,9 +12,10 @@ header.header
                     i.fa.fa-facebook-f
         
     .container
-        .header__bottom
+        .header__bottom            
             .logo: img.logo__picture(src="images/logo.png", alt="picture")
             nav.nav
+                span.name ООО "Бизнес-Право"/ г.Улан-Удэ
                 - var items = ['Главная', 'О нас', 'Наши тарифы', 'Наша работа']
                 each item, i in items
                     if i === 0
