@@ -1,0 +1,21 @@
+section.form-section
+    .container
+        .title
+            h2.title.title__header Оставьте заявку
+            .title__text Мы свяжемся с Вами
+
+        .btn-down: a.arrow-down: i.fa.fa-angle-down
+
+        .form-container
+            form(method="post" action="#").form
+                button(type="button").form__close-button x
+                .form__text.
+                    Оставьте заявку мы свяжемся с Вами и проконсультируем по имеющимся вопросам.
+                .form__fields
+                    input.form__input(type="text" placeholder="Имя")
+                    input.form__input(type="text" placeholder="Email")
+                    input.form__input(type="text" placeholder="Телефон")
+                    input.form__input(type="checkbox")
+                    | Даю согласие на обработку моих персональных данных  
+
+                button(type="submit").button.button--uppercase.button--red Отправить  
