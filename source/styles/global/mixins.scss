@@ -16,3 +16,8 @@
     top: 50%;
     transform: translate(-50%);
 }
+@mixin mrgbottom(){
+    @media(max-width:520px){
+        margin-bottom:35px;
+    }
+}

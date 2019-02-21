@@ -4,6 +4,13 @@
     color: #000000;
     padding: 99px 0 105px 0;
     text-align: center;
+    .title{
+        @include mrgbottom();
+    }
+    @media(max-width:520px){
+        padding-top: 20px;
+        padding-bottom: 10px;
+    }  
     
     &__list {
         display:flex;
@@ -16,17 +23,30 @@
 
     &__item {
         width: 25%;
+        @media(max-width:760px)
+        {
+            width: 50%;
+            padding: 5px;
+            box-sizing: border-box;
+            margin-bottom: 15px;
+        }
+        @media(max-width:520px)
+        {
+            width: 100%;
+            padding:0;            
+            margin-bottom: 0;
+        }
     }
 
     &__header {
         margin: 0 0 12px 0;
         font-size: 1rem;
         font-family: $ff-main-bold;
-        color: #000000;
+        color: #000000;               
     }
-    &____description {
+    &__description {
         margin-top: 0;
-        font-size: 0.5rem;
+        font-size: 0.875rem;
         line-height: 1.5;
         color: #000000;
     }

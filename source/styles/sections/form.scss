@@ -2,6 +2,10 @@
     padding: 100px 0 110px 0;
     color: #000000;
     background-color: #fff;
+    @media(max-width:520px){
+        padding-top: 20px;
+        padding-bottom: 10px;
+    }  
     
     .title{
         margin-bottom: 12px;        
@@ -40,6 +44,10 @@
     color:#828282;
     text-align: center;
     background-color: #ffde41;
+    @media(max-width:520px){
+        width: 90%;
+        padding: 25px;        
+    }
 
     &__close-button{
         //display: none;
@@ -81,6 +89,9 @@
         font-size: 0.875rem;
         &:focus{
             box-shadow: 0 0 8px 1px rgba($color: #1e90ff, $alpha: 1.0) ;
+        }
+        @media(max-width:520px){
+            width: 100%;        
         }
     }
 }

@@ -1,6 +1,13 @@
 .approch{
     padding: 86px 0 94px;
-    background-color: #f3f3f3;    
+    background-color: #f3f3f3; 
+    .title{        
+        @include mrgbottom();
+    }
+    @media(max-width:520px){
+        padding-top: 20px;
+        padding-bottom: 10px;
+    }   
 
     &__list {
         margin: 0;
@@ -22,6 +29,13 @@
         vertical-align: top;        
         font-size: 0.875rem;
         padding: 30px;
+        @media(min-width: 380px) and (max-width: 520px) {
+            padding: 10px 10px 10px 0;
+        }
+        @media(max-width: 380px){ 
+            padding: 10px 10px 10px 10px;           
+            /*padding-left: 10px;*/
+        }
        
     }
 
@@ -51,12 +65,15 @@
             font-size:3rem;
             line-height: 1;            
         }
+        @media(max-width: 380px){
+            display: none;            
+        }
     }
 
     &__title {
         margin-bottom: 6px;
         font-size: 1.125rem;
-        font-family: $ff-main-bold ;
+        font-family: $ff-main-bold ;   
     }
 
     &__description {

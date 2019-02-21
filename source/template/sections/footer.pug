@@ -1,1 +1,15 @@
-footer
+-var linkItems = ['facebook-official','instagram','vk'];
+-var linkUrls = ['facebook.com/biznespravo03', 'instagram.com/biznespravo03', 'vk.com/biznespravo03'];
+footer.footer
+    .footer__top
+        .container
+            .footer__title Мы в соцсетях
+            .footer__links
+                each item, key in linkItems 
+                    a.footer__social(href="https://"+linkUrls[key] target="_blank")
+                        i(class="fa fa-" + item aria-hidden="true")
+                            span.visually-hidden=linkItems
+            .footer__text Присоединяйтесь к нам в соцсетях
+    .footer__bottom
+        .footer__copy. 
+            © «1С:БухОбслуживание "Бизнес-Право"» 670000 г. Улан-Удэ, ул. Соборная (бывшая Линховоина), 18/2
