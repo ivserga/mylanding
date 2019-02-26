@@ -12,10 +12,10 @@ section.form-section
                 .form__text.
                     Оставьте заявку мы свяжемся с Вами и проконсультируем по имеющимся вопросам.
                 .form__fields
-                    input.form__input(type="text" placeholder="Имя")
-                    input.form__input(type="text" placeholder="Email")
-                    input.form__input(type="text" placeholder="Телефон")
-                    input.form__input(type="checkbox")
+                    input.form__input(type="text" placeholder="Имя" data-valid="required")
+                    input.form__input(type="text" placeholder="Email" data-valid="required" data-email)
+                    input.form__input(type="text" placeholder="Телефон" data-valid="required" data-number)
+                    input.form__input(type="checkbox" data-valid="required")
                     | Даю согласие на обработку моих персональных данных  
 
                 button(type="submit").button.button--uppercase.button--red Отправить  

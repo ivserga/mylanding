@@ -50,7 +50,7 @@
     }
 
     &__close-button{
-        //display: none;
+        display: none;
         position: absolute;
         right: -16px;
         top: -22px;
@@ -93,5 +93,32 @@
         @media(max-width:520px){
             width: 100%;        
         }
-    }
+
+        &__wrong{
+            width:76%;
+            display: block;
+            margin: auto auto 8px auto;
+            padding: 18px 20px;
+            border: 1px solid #d8d8d8;
+            border-radius: 3px;
+            font-size: 0.875rem;
+            box-shadow: 0 0 8px 1px rgba($color: #ff1e1e, $alpha: 1.0) ;
+            @media(max-width:520px){
+                width: 100%;        
+            }  
+        }
+
+        &:last-child {
+        width:10%;
+        display: block;
+        margin: auto auto 8px auto;
+        padding: 18px 20px;
+        border: 1px solid #d8d8d8;
+        border-radius: 3px;        
+        &:focus{
+                box-shadow: 0 0 8px 1px rgba($color: #1e90ff, $alpha: 1.0) ;
+        }
+        
+        }
+    }    
 }
