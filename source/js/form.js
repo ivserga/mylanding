@@ -1,23 +1,28 @@
 (function(){
     
-    var formback = document.querySelector('.form-container');
+    var formback = document.querySelector('.form');
     var requiredFields= document.querySelectorAll('[data-valid="required"]');
     var emailValue = document.querySelector('[data-email]');
     var numberValue = document.querySelector('[data-number]');
     emailValue.onchange= emailChange;
     numberValue.onchange = numberChange;
-    formback.onsubmit = isValid;
-   
+    if (formback) {
+        formback.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            var validate = (requiredFields !=="undefined" && emailValue !=="undefined"  && numberValue !=="undefined" )? isValid(requiredFields, emailValue, numberValue):null;
+        });
+    }
 
-    function isValid () {           
+    function isValid (prequiredFields, pemailValue, pnumberValue) {           
 
-        if (!isAllCompleted(requiredFields)) {
+        if (!isAllCompleted(prequiredFields)) {
             console.log('Заполните пожалуйста все необходимые поля');
             return false;
-        } else if (!emailOnChange(emailValue.value)) {
+        } else if (!emailOnChange(pemailValue.value)) {
             console.log('Не верный email');
             return false;
-        } else if (!numberOnChange(numberValue.value)) {
+        } else if (!numberOnChange(pnumberValue.value)) {
             console.log('Не верный номер');
             return false;
         }
@@ -65,16 +70,26 @@
         var result = true;
 
         for (var i = 0; i < data.length; i++) {
-            if (!isNotEmpty(data[i].value)) {
-                if(data[i].type=="checkbox"){
-                    data[i].style.boxShadow = "0 0 8px 1px rgba($color: #1e90ff, $alpha: 1.0)" ;
+            if(data[i].type=="text") {
+                if (!isNotEmpty(data[i].value)) {               
+                    data[i].className = "form__input__wrong";
+                    result = false;                    
                 }
-                else
-                data[i].className = "form__input__wrong";
-
-                result = false;
-                break;
+                else{
+                    data[i].className = "form__input";
+                }
+            }            
+            else {
+                if (!data[i].checked){ 
+                    console.log("checkbox")
+                    data[i].className = "form__input__wrong";
+                    result = false;
+                }
+                else{
+                    data[i].className = "form__input";
+                }                
             }
+            
         }
 
         return result;
