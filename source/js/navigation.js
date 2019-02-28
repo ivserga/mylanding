@@ -2,8 +2,7 @@
     
     var butwrite = document.querySelector('.writeord');
     var butconsult = document.querySelector('[data-consult]');
-    var formsect = "form";
-    console.log(butwrite);
+    var formsect = "form";    
     var nav = document.querySelector('.nav');      
     
     if (nav) {
@@ -26,9 +25,9 @@
             var bodyScrollTop = document.documentElement.scrollTop || document.body.scrollTop;
             if (bodyScrollTop < coords.top) {                
                 window.scrollBy(0, 10)
-            } else {
-                clearInterval(timerId);
-            }
+            } 
+             else{clearInterval(timerId);}
+            
         }, animateTime || 0.5)
     }
 

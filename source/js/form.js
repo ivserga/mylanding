@@ -1,54 +1,101 @@
 (function(){
     
     var formback = document.querySelector('.form');
+    var formtext = document.querySelector('.form__text');
     var requiredFields= document.querySelectorAll('[data-valid="required"]');
     var emailValue = document.querySelector('[data-email]');
     var numberValue = document.querySelector('[data-number]');
+    var checker = document.querySelector('[data-check]');
+    var nameValue = document.querySelector('[data-name]');
+    var rightlink = document.querySelector('.right');
+    var rightlinktext = document.querySelector('.textright');
+    rightlink.addEventListener('click', linkClick);
+    rightlink.onblur = showrightlinktext;
+    nameValue.onchange = nameChange;
     emailValue.onchange= emailChange;
     numberValue.onchange = numberChange;
+    checker.onchange=checkChange;
+   
     if (formback) {
         formback.addEventListener('submit', function(e) {
             e.preventDefault();
             
             var validate = (requiredFields !=="undefined" && emailValue !=="undefined"  && numberValue !=="undefined" )? isValid(requiredFields, emailValue, numberValue):null;
+            if(validate)
+            {
+                clearform(requiredFields);                
+                formtext.textContent = "Ваша заявка принята, мы свяжемся с Вами в ближайшее время";
+            }
         });
     }
 
+    function showrightlinktext(e){
+        var temp5= rightlinktext;        
+        temp5.classList.remove("textright__show");
+    };
+
+    function linkClick(e){
+        e.preventDefault();        
+        var temp6 = rightlinktext;
+        if(temp6.className==="textright")
+            temp6.classList.add("textright__show");
+        else
+        temp6.classList.remove("textright__show");
+    };
+
     function isValid (prequiredFields, pemailValue, pnumberValue) {           
 
-        if (!isAllCompleted(prequiredFields)) {
-            console.log('Заполните пожалуйста все необходимые поля');
+        if (!isAllCompleted(prequiredFields)) {            
             return false;
-        } else if (!emailOnChange(pemailValue.value)) {
-            console.log('Не верный email');
+        } else if (!emailOnChange(pemailValue.value)) {            
             return false;
-        } else if (!numberOnChange(pnumberValue.value)) {
-            console.log('Не верный номер');
+        } else if (!numberOnChange(pnumberValue.value)) {           
             return false;
         }
-
         return true;
     }; 
 
+    function checkChange(e) {
+        var temp1= e.target;    
+       if (!temp1.checked ){           
+           temp1.classList.add("form__input__wrong") ;          
+       }
+       else {
+            temp1.classList.remove("form__input__wrong") ;            
+            temp1.classList.add("form__input") ; 
+       }
+    } 
+
+    function nameChange(e) {
+        var temp2= e.target;    
+       if (!isNotEmpty(temp2.value)){           
+           temp2.classList.add("form__input__wrong") ;
+           temp2.value= null;
+       }
+       else {  
+            temp2.classList.remove("form__input__wrong") ;            
+            temp2.classList.add("form__input") ; 
+       }
+    }
     function emailChange(e) {
-        var temp= e.target;    
-       if (!emailOnChange(temp.value)){           
-           temp.className = "form__input__wrong" ;
-           temp.value= null;
+        var temp3= e.target;    
+       if (!emailOnChange(temp3.value)){           
+           temp3.classList.add('form__input__wrong'); 
+           temp3.value= null;
        }
        else {            
-            temp.className = "form__input" ;
+            temp3.classList.remove('form__input__wrong');
        }
     }
 
     function numberChange(e) {
-        var temp= e.target;    
-       if (!numberOnChange(temp.value)){           
-           temp.className = "form__input__wrong" ;
-           temp.value= null;
+        var temp4= e.target;    
+       if (!numberOnChange(temp4.value)){           
+           temp4.classList.add('form__input__wrong'); 
+           temp4.value= null;
        }
        else {            
-            temp.className = "form__input" ;
+            temp4.classList.remove('form__input__wrong');
        }
     }
 
@@ -72,27 +119,40 @@
         for (var i = 0; i < data.length; i++) {
             if(data[i].type=="text") {
                 if (!isNotEmpty(data[i].value)) {               
-                    data[i].className = "form__input__wrong";
+                    data[i].classList.add('form__input__wrong');               ///className = "form__input__wrong";
                     result = false;                    
                 }
                 else{
-                    data[i].className = "form__input";
+                    data[i].classList.remove('form__input__wrong');             //className = "form__input";
                 }
             }            
             else {
-                if (!data[i].checked){ 
-                    console.log("checkbox")
-                    data[i].className = "form__input__wrong";
+                if (!data[i].checked){                    
+                    data[i].classList.add('form__input__wrong');  
                     result = false;
                 }
                 else{
-                    data[i].className = "form__input";
+                    data[i].classList.remove('form__input__wrong');  
                 }                
             }
             
         }
 
         return result;
-    };  
+    }; 
+    function clearform (data) {
+        for (var i = 0; i < data.length; i++) {
+            if(data[i].type=="text") {                
+                data[i].value = null;
+                data[i].classList.remove('form__input__wrong');         
+            }            
+            else {
+                if (data[i].checked){                     
+                    data[i].checked = false;
+                    data[i].classList.remove('form__input__wrong');                      
+                }                           
+            }          
+        }       
+    };   
 
 }());
