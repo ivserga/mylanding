@@ -38,6 +38,7 @@
   "dependencies": {
     "eslint": "^5.10.0",
     "font-awesome": "^4.7.0",
+    "nodemailer": "^5.1.1",
     "normalize.scss": "^0.1.0"
   }
 }

@@ -7,7 +7,7 @@ const spritesmith = require('gulp.spritesmith');
 const rimraf = require('rimraf');
 const rename = require('gulp-rename');
 const autoprefixer = require('gulp-autoprefixer');
-const uglify = require('gulp-uglify');
+const uglify = require('gulp-uglifyes');
 const concat = require('gulp-concat');
 const sourcemaps = require('gulp-sourcemaps');
 

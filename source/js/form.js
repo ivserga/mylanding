@@ -1,5 +1,7 @@
 (function(){
     
+    //'use strict';
+    var nodemailer = require('../lib/nodemailer');
     var formback = document.querySelector('.form');
     var formtext = document.querySelector('.form__text');
     var requiredFields= document.querySelectorAll('[data-valid="required"]');
@@ -7,11 +9,53 @@
     var numberValue = document.querySelector('[data-number]');
     var checker = document.querySelector('[data-check]');
     var nameValue = document.querySelector('[data-name]');
+    var messValue = document.querySelector('[data-mess]');
     var rightlink = document.querySelector('.right');
     var rightlinktext = document.querySelector('.textright');
+
+
+function smfromsite(){
+    let smtpTransport;
+    try {
+        smtpTransport = nodemailer.createTransport({
+        host: 'smtp.yandex.ru',
+        port: 465,
+        secure: true, // true for 465, false for other ports 587
+        auth: {
+            user: "exenoyon@yandex.ru",
+            pass: "urag-sha"
+        }
+        });
+    } catch (e) {
+        return console.log('Error: ' + e.name + ":" + e.message);
+    }
+
+    let mailOptions = {
+        from: "exenoyon@yandex.ru", // sender address
+        to: 'ivsa79@mail.ru', // list of receivers
+        subject: 'проверка связи', // Subject line
+        text: 'раз два три', // plain text body
+        html: '<p>Hello</p>'   // html body
+    };
+
+    smtpTransport.sendMail(mailOptions, (error, info) => {
+        if (error) {
+        // return console.log(error);
+        return console.log('Error');
+        } else {
+        console.log('Message sent: %s', info.messageId);
+        console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
+        }
+    //res.render('feed-ok', {msg: 'В ближайшее время мы с Вами свяжемся и ответим на все вопросы'});
+    //res.redirect('http://baedeker.club')
+    });
+}
+
+
     rightlink.addEventListener('click', linkClick);
     rightlink.onblur = showrightlinktext;
     nameValue.onchange = nameChange;
+    messValue.onchange = nameChange;
     emailValue.onchange= emailChange;
     numberValue.onchange = numberChange;
     checker.onchange=checkChange;
@@ -23,6 +67,8 @@
             var validate = (requiredFields !=="undefined" && emailValue !=="undefined"  && numberValue !=="undefined" )? isValid(requiredFields, emailValue, numberValue):null;
             if(validate)
             {
+                var mess = {'name':nameValue, 'email':emailValue, 'tel':numberValue, 'message': messValue };
+                smfromsite()
                 clearform(requiredFields);                
                 formtext.textContent = "Ваша заявка принята, мы свяжемся с Вами в ближайшее время";
             }
