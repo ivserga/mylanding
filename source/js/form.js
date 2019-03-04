@@ -1,7 +1,5 @@
 (function(){
-    
-    //'use strict';
-    var nodemailer = require('../lib/nodemailer');
+        
     var formback = document.querySelector('.form');
     var formtext = document.querySelector('.form__text');
     var requiredFields= document.querySelectorAll('[data-valid="required"]');
@@ -11,47 +9,7 @@
     var nameValue = document.querySelector('[data-name]');
     var messValue = document.querySelector('[data-mess]');
     var rightlink = document.querySelector('.right');
-    var rightlinktext = document.querySelector('.textright');
-
-
-function smfromsite(){
-    let smtpTransport;
-    try {
-        smtpTransport = nodemailer.createTransport({
-        host: 'smtp.yandex.ru',
-        port: 465,
-        secure: true, // true for 465, false for other ports 587
-        auth: {
-            user: "exenoyon@yandex.ru",
-            pass: "urag-sha"
-        }
-        });
-    } catch (e) {
-        return console.log('Error: ' + e.name + ":" + e.message);
-    }
-
-    let mailOptions = {
-        from: "exenoyon@yandex.ru", // sender address
-        to: 'ivsa79@mail.ru', // list of receivers
-        subject: 'проверка связи', // Subject line
-        text: 'раз два три', // plain text body
-        html: '<p>Hello</p>'   // html body
-    };
-
-    smtpTransport.sendMail(mailOptions, (error, info) => {
-        if (error) {
-        // return console.log(error);
-        return console.log('Error');
-        } else {
-        console.log('Message sent: %s', info.messageId);
-        console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
-        }
-    //res.render('feed-ok', {msg: 'В ближайшее время мы с Вами свяжемся и ответим на все вопросы'});
-    //res.redirect('http://baedeker.club')
-    });
-}
-
-
+    var rightlinktext = document.querySelector('.textright');     
     rightlink.addEventListener('click', linkClick);
     rightlink.onblur = showrightlinktext;
     nameValue.onchange = nameChange;
@@ -64,16 +22,39 @@ function smfromsite(){
         formback.addEventListener('submit', function(e) {
             e.preventDefault();
             
-            var validate = (requiredFields !=="undefined" && emailValue !=="undefined"  && numberValue !=="undefined" )? isValid(requiredFields, emailValue, numberValue):null;
+            var validate = (requiredFields !=="undefined" && emailValue !=="undefined"  && numberValue !=="undefined" )? isValid(requiredFields, emailValue, numberValue):false;
             if(validate)
             {
-                var mess = {'name':nameValue, 'email':emailValue, 'tel':numberValue, 'message': messValue };
-                smfromsite()
+                var mess = {'name':nameValue.value, 'email':emailValue.value, 'tel':numberValue.value, 'message': messValue.value };
+                makeRequest(mess);
                 clearform(requiredFields);                
                 formtext.textContent = "Ваша заявка принята, мы свяжемся с Вами в ближайшее время";
             }
         });
     }
+
+    function makeRequest(pardata) {
+
+        var data = new FormData();
+        data.append('name', pardata.name);
+        data.append('number', pardata.tel);
+        data.append('email', pardata.email);
+        var submitFlUrl = "../php/sendmailer.php" ;
+        var xhr = new XMLHttpRequest();
+        xhr.open('post', submitFlUrl, true );  
+        xhr.send(data);  
+       
+        xhr.onload= ()=>{ var datafromServ = JSON.parse(xhr.responseText);           
+            if(datafromServ)           
+            {                         
+                console.log(datafromServ); 
+            }                       
+        }  
+        xhr.onerror = function() {
+            console.log('error!!!'); 
+        };         
+    };  
+
 
     function showrightlinktext(e){
         var temp5= rightlinktext;        
@@ -163,7 +144,7 @@ function smfromsite(){
         var result = true;
 
         for (var i = 0; i < data.length; i++) {
-            if(data[i].type=="text") {
+            if(data[i].type=="text" || data[i].type=="textarea" ) {
                 if (!isNotEmpty(data[i].value)) {               
                     data[i].classList.add('form__input__wrong');               ///className = "form__input__wrong";
                     result = false;                    
@@ -188,7 +169,7 @@ function smfromsite(){
     }; 
     function clearform (data) {
         for (var i = 0; i < data.length; i++) {
-            if(data[i].type=="text") {                
+            if(data[i].type=="text" || data[i].type=="textarea" ) {                
                 data[i].value = null;
                 data[i].classList.remove('form__input__wrong');         
             }            
