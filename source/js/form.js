@@ -27,8 +27,7 @@
             {
                 var mess = {'name':nameValue.value, 'email':emailValue.value, 'tel':numberValue.value, 'message': messValue.value };
                 makeRequest(mess);
-                clearform(requiredFields);                
-                formtext.textContent = "Ваша заявка принята, мы свяжемся с Вами в ближайшее время";
+                clearform(requiredFields);    
             }
         });
     }
@@ -39,20 +38,24 @@
         data.append('name', pardata.name);
         data.append('number', pardata.tel);
         data.append('email', pardata.email);
+        data.append('mess', pardata.message);
         var submitFlUrl = "../php/sendmailer.php" ;
         var xhr = new XMLHttpRequest();
-        xhr.open('post', submitFlUrl, true );  
-        xhr.send(data);  
-       
-        xhr.onload= ()=>{ var datafromServ = JSON.parse(xhr.responseText);           
-            if(datafromServ)           
-            {                         
-                console.log(datafromServ); 
-            }                       
+        xhr.open('post', submitFlUrl, true );   
+        xhr.send(data); 
+
+        xhr.onload= ()=>{ var datafromServ = xhr.responseText ;           
+            if(datafromServ === "ok"){                         
+                formtext.textContent = "Ваша заявка принята, мы свяжемся с Вами в ближайшее время";
+            } 
+            else{
+                formtext.textContent = "Хм... что то пошло не так... давайте попробуем еще раз";
+            }                      
         }  
         xhr.onerror = function() {
-            console.log('error!!!'); 
-        };         
+            formtext.textContent = "Хм... что то пошло не так... давайте попробуем еще раз";
+        }; 
+        
     };  
 
 

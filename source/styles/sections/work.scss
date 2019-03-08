@@ -2,11 +2,15 @@
     
     background-color: #ffde41;
     color: #000000;
-    padding: 99px 0 105px 0;
+    padding: 75px 0 75px 0;
     text-align: center;
     .title{
         @include mrgbottom();
     }
+    @media(max-width:760px){
+        padding-top: 40px;
+        padding-bottom: 30px;
+    }  
     @media(max-width:520px){
         padding-top: 20px;
         padding-bottom: 10px;
@@ -22,10 +26,10 @@
     }
 
     &__item {
-        width: 25%;
+        width: 100%;
         @media(max-width:760px)
         {
-            width: 50%;
+            width: 100%;
             padding: 5px;
             box-sizing: border-box;
             margin-bottom: 15px;

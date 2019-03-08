@@ -87,10 +87,10 @@ gulp.task('js', function() {
 /*__________php________________*/
 
 gulp.task('php', function() {
-    return gulp.src([                              
-        'source/php/phpmailer.php',
-        'source/php/sendmailer.php',        
-        'source/php/smtp.php'
+    return gulp.src([                  
+        
+        'source/php/sendmailer.php'        
+        
     ])
     .pipe(sourcemaps.init())
     //.pipe(concat('main.min.js')) 

@@ -11,6 +11,7 @@
     $name = $_POST['name'];
     $number = $_POST['number'];
     $email = $_POST['email'];
+    $message = $_POST['mess'];
     // Настройки
     $mail = new PHPMailer;
     $mail->isSMTP(); 
@@ -38,7 +39,7 @@
     // Письмо
     $mail->isHTML(true); 
     $mail->Subject = "Заявка с сайта"; // Заголовок письма
-    $mail->Body = "Имя $name . Телефон $number . Почта $email"; // Текст письма
+    $mail->Body = "Имя $name . Телефон $number . Почта $email . Текст $message"; // Текст письма
     // Результат
     if(!$mail->send()) {
     echo 'Message could not be sent.';
